@@ -1,0 +1,82 @@
+﻿@model pc.Models.ProductListView
+
+@{
+    ViewBag.Title = "商品清單";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ul class="breadcrumb">
+  <li>後端管理</li>
+  <li>@Html.ActionLink("新增商品", "add", "Manage")</li>
+  <li>@Html.ActionLink("訂單管理", "order", "Manage")</li>
+</ul>
+
+@using (Html.BeginForm())
+{
+    
+        <div class="input-group" style="margin:0px 0px 20px 0px">
+            <span class="input-group-btn" >@Html.DropDownListFor(m => m.cid, (IEnumerable<SelectListItem>)ViewBag.category, "請選擇查詢項目", new { @class = "form-control", style = "width:150px;border-right:1px solid white" })</span>
+            @Html.TextBoxFor(m => m.search, new { @class = "form-control", @placeholder = "請輸入查詢字串" })        
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary" style="height:34px">查詢</button></span>  
+       </div>
+    
+<div>商品總數 @ViewBag.productCount</div>
+<table class="table table-hover  text-center">
+<thead>
+    <tr class="text-center success">
+        <th class="text-center">@Html.ActionLink("編號", "list", new { sort = ViewBag.pid })</th>
+        <th class="text-center">@Html.ActionLink("名稱", "list", new { sort = ViewBag.pName })</th>
+        <th class="text-center">分類</th>
+        <th class="text-center">@Html.ActionLink("售價", "list", new { sort = ViewBag.pPrice })</th>
+        <th class="text-center">@Html.ActionLink("庫存", "list", new { sort = ViewBag.pStock })</th>
+        <th class="text-center">圖片</th>
+        <td class="text-center">編輯</td>
+        <td class="text-center">刪除</td> 
+    </tr>
+</thead>
+    @foreach (var item in Model.dataList)
+    {
+        <tr>
+            <td style="width:50px;">@item.id</td>
+            <td >@item.name</td>
+            <td style="width:50px;">@item.cid</td>
+            <td style="width:80px;">@item.price.ToString("#.#")</td>
+            <td style="width:60px;">@item.instock</td>
+            <td>@item.image</td>
+            <td style="width:80px;">@Html.ActionLink("編輯商品", "edit", new { id = item.id })</td>
+            <td style="width:80px;">@Html.ActionLink("刪除商品", "delete", new { id = item.id }, new { @id = "delete", @onclick = "return confirm('你確定要刪除\"" + item.name + "\"商品?');" })</td>
+        </tr>
+    }
+</table>
+<div class="text-center" style="font-size:14px; margin:10px 0px 10px 0px">
+    <ul class="pagination" style=" font-family:微軟正黑體">
+    @if (Model.page.currentPage > 1)
+    {
+        <li>@Html.ActionLink("第一頁", "list", new { page = 1 })</li>
+        <li>@Html.ActionLink("上一頁", "list", new { page = Model.page.currentPage - 1 })</li>
+    }
+
+    @for (int i = Model.page.currentPage - 5; i < Model.page.currentPage + 5; i++)
+    {
+        if (i > 0 && i <= Model.page.MaxPage)
+        {
+            if (i == Model.page.currentPage)
+            {
+                <li>@Html.ActionLink(i.ToString(), "list", new { page = i }, new { @style = "background-color:gray; color:white" })</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink(i.ToString(), "list", new { page = i })</li>
+            }
+        }
+
+
+    }
+    @if (Model.page.currentPage < Model.page.MaxPage)
+    {
+    <li>@Html.ActionLink("下一頁", "list", new { page = Model.page.currentPage + 1 })</li>
+    <li>@Html.ActionLink("最後一頁", "list", new { page = Model.page.MaxPage })</li>
+    }
+    <li style="padding:0px 10px; line-height:35px">第 @Model.page.currentPage 頁/共 @Model.page.MaxPage 頁</li>
+    </ul>
+</div>
+}

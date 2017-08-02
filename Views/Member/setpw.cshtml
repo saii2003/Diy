@@ -1,0 +1,32 @@
+﻿@model pc.Models.SetPwView
+@{
+    ViewBag.Title = "設定新密碼";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/invertical.css");
+}
+
+<h3>設定新密碼</h3>
+@using (Html.BeginForm())
+{
+   
+    @Html.AntiForgeryToken()
+    <div class="input-group-vertical">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+              @Html.PasswordFor(m => m.new_password, new { @class = "form-control", @placeholder = "請輸入新密碼" })
+            </div>
+          @Html.ValidationMessageFor(m=>m.new_password)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                @Html.PasswordFor(m => m.confirm_password, new { @class = "form-control", @placeholder = "請輸入確認新密碼" })
+            </div>
+            @Html.ValidationMessageFor(m=>m.confirm_password)
+        </div>
+    </div>
+     @Html.ValidationSummary(true)
+   <div class="text-center" style="color:Red"><h4> @ViewData["result"] </h4></div>
+    <input class="btn btn-lg btn-block btn-primary" type="submit" value="確定" />
+}

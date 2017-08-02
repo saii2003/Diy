@@ -1,0 +1,10 @@
+App_Data
+bin
+obj
+Properties
+pc.csproj
+pc.csproj.user
+packages.config
+pc.Publish.xml
+Web.Debug.config
+Web.Release.config

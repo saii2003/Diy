@@ -1,0 +1,42 @@
+﻿@model IEnumerable<pc.Models.orderDetail>
+
+@{
+    ViewBag.Title = "訂單明細";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>後端管理</li>
+   <li>@Html.ActionLink("商品清單", "list","Manage")</li>
+  <li>@Html.ActionLink("新增商品", "add","Manage")</li> 
+  <li>@Html.ActionLink("訂單頁面", "order","Manage")</li> 
+</ul>
+<h3>訂單明細</h3>
+
+<table class="table table-hover table-bordered text-center">
+<thead>
+<tr>
+<th class"text-center">商品名稱</th>
+<th class"text-center">數量</th>
+<th class"text-center">小計</th>
+
+</tr>
+</thead>
+@foreach(var item in Model)
+{
+    <tr>
+    <td>@item.name</td>
+    <td>@Convert.ToInt32(item.amount)</td>
+    <td>@Convert.ToInt32(item.price)</td>
+    </tr>
+}
+
+
+
+
+
+
+</table>
+
+
+

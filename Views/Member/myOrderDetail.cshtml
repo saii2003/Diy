@@ -1,0 +1,43 @@
+﻿@model IEnumerable<pc.Models.orderDetail>
+
+@{
+    ViewBag.Title = "訂單明細";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+  <li>會員專區</li>
+  <li>@Html.ActionLink("修改個人資料", "Changemem","Member")</li>
+  <li>@Html.ActionLink("修改密碼", "changepw", "Member")</li> 
+  <li>@Html.ActionLink("我的訂單", "myOrder", "Member")</li> 
+</ul>
+<h3>訂單明細</h3>
+
+<table class="table table-hover table-bordered text-center">
+<thead>
+<tr>
+<th>商品名稱</th>
+<th>數量</th>
+<th>小計</th>
+
+</tr>
+</thead>
+@foreach(var item in Model)
+{
+    <tr>
+    <td>@item.name</td>
+    <td>@Convert.ToInt32(item.amount)</td>
+    <td>@Convert.ToInt32(item.price)</td>
+    </tr>
+}
+
+
+
+
+
+
+</table>
+
+
+
+

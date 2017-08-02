@@ -1,0 +1,136 @@
+﻿@model pc.Models.IndexView
+
+@{
+    ViewBag.Title = "電腦估價";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/index.css")
+    @Scripts.Render("~/Scripts/index.js")
+   
+}
+@using (Html.BeginForm("toExcel","Pc",FormMethod.Get))
+{
+<div id="cart" style=" position:fixed; left:5px; top:70px; ">@Html.Partial("Cart_Partial")</div>
+<div ng-app="pcApp" ng-controller="pcControl" ng-init="cpu_amount = 1;mainboard_amount=1;memory_amount=1;hardware_amount=1;videocard_amount=1;power_amount=1;cases_amount=1;dvd_amount=1;monitor_amount=1">
+    <table class="table table-hover table-bordered text-center"  style="width:100%">
+        <thead>
+            <tr class="text-center active" style="font-size:15px;">
+                <th class="text-center" style="width:20px">#</th>
+                <th class="text-center" style="width:100px">項目</th>
+                <th class="text-center" >商品名稱</th>
+                <th class="text-center" style="width:80px">數量</th>
+                <th class="text-center" style="width:80px">單價</th>
+                <th class="text-center" style="width:80px">小計</th>
+                <th class="text-center" style="width:60px">圖片</th>
+            </tr>
+        </thead>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">1</td>
+            <td style="padding:13px 0px 0px 0px;">CPU</td>
+            <td>@Html.DropDownListFor(m => m.cpu, (IEnumerable<SelectListItem>)ViewBag.CPU, "共有" + @ViewData["CPU_Count"] + "項商品", new { @class = "form-control", @id = "cpu", ng_model = "cpu", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.cpu_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "cpu_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="cpu_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="cpu.split(',')[1] * cpu_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_cpuimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ cpu_src }}" alt="無圖片"/></span></div></td>
+
+        </tr>
+    
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">2</td>
+            <td style="padding:13px 0px 0px 0px;">主機板</td>
+            <td>@Html.DropDownListFor(m => m.mainboard, (IEnumerable<SelectListItem>)ViewBag.mainboard, "共有" + @ViewData["mainboard_Count"] + "項商品", new { @class = "form-control", ng_model = "mainboard", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.mainboard_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "mainboard_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="mainboard_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="mainboard.split(',')[1] * mainboard_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_mainboardimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ mainboard_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">3</td>
+            <td style="padding:13px 0px 0px 0px;">記憶體</td>
+            <td>@Html.DropDownListFor(m => m.memory, (IEnumerable<SelectListItem>)ViewBag.memory, "共有" + @ViewData["memory_Count"] + "項商品", new { @class = "form-control", ng_model = "memory", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.memory_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "memory_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="memory_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="memory.split(',')[1] * memory_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_momeryimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ memory_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">4</td>
+            <td style="padding:13px 0px 0px 0px;">硬碟</td>
+            <td>@Html.DropDownListFor(m => m.hardware, (IEnumerable<SelectListItem>)ViewBag.hardware, "共有" + @ViewData["hardware_Count"] + "項商品", new { @class = "form-control", ng_model = "hardware", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.hardware_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "hardware_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="hardware_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="hardware.split(',')[1] * hardware_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_hardwareimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ hardware_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr>
+            <td style="padding:13px 0px 0px 0px;">5</td>
+            <td style="padding:13px 0px 0px 0px;">顯示卡</td>
+            <td>@Html.DropDownListFor(m => m.videocard, (IEnumerable<SelectListItem>)ViewBag.videocard, "共有" + @ViewData["videocard_Count"] + "項商品", new { @class = "form-control", ng_model = "videocard", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.videocard_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "videocard_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="videocard_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="videocard.split(',')[1] * videocard_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_videocardimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ videocard_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">6</td>
+            <td style="padding:13px 0px 0px 0px;">電源供應器</td>
+            <td>@Html.DropDownListFor(m => m.power, (IEnumerable<SelectListItem>)ViewBag.power, "共有" + @ViewData["power_Count"] + "項商品", new { @class = "form-control", ng_model = "power", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.power_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "power_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="power_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="power.split(',')[1] * power_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_powerimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ power_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">7</td>
+            <td style="padding:13px 0px 0px 0px;">電腦機殼</td>
+            <td>@Html.DropDownListFor(m => m.cases, (IEnumerable<SelectListItem>)ViewBag.cases, "共有" + @ViewData["cases_Count"] + "項商品", new { @class = "form-control", ng_model = "cases", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.cases_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "cases_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="cases_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="cases.split(',')[1] * cases_amount | currency:'':0"></div></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_casesimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ cases_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">8</td>
+            <td style="padding:13px 0px 0px 0px;">光碟燒錄機</td>
+            <td>@Html.DropDownListFor(m => m.dvd, (IEnumerable<SelectListItem>)ViewBag.dvd, "共有" + @ViewData["dvd_Count"] + "項商品", new { @class = "form-control", ng_model = "dvd", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.dvd_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "dvd_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="dvd_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="dvd.split(',')[1] * dvd_amount | currency:'':0"></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_dvdimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ dvd_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+        <tr >
+            <td style="padding:13px 0px 0px 0px;">9</td>
+            <td style="padding:13px 0px 0px 0px;">螢幕</td>
+            <td>@Html.DropDownListFor(m => m.monitor, (IEnumerable<SelectListItem>)ViewBag.monitor, "共有" + @ViewData["dvd_Count"] + "項商品", new { @class = "form-control", ng_model = "monitor", ng_change = "total()" })</td>
+            <td>@Html.TextBoxFor(m => m.monitor_amount, new { @class = "form-control", @type = "number", @min = "1", @max = "10", ng_model = "monitor_amount" })</td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="monitor_price | currency:'':0"></div></td>
+            <td style="padding:13px 0px 0px 0px;"><div ng-bind="monitor.split(',')[1] * monitor_amount | currency:'':0"></td>
+            <td style="padding:10px 0px 0px 0px;"><div id="tooltip" ng-show="show_monitorimg" ><img src="~/Content/images/imgicon.png" width="30" height="30" /><span id="tooltip_img"><img ng-src="~/Image/{{ monitor_src }}" alt="無圖片"/></span></div></td> 
+        </tr>
+    </table>  
+    <div style="font-size:16px; padding:8px 0px 8px 0px; background-color:#272727;color:White; font-family:微軟正黑體; ">
+        <div class="row">
+            <div  style="float:right; padding:0px 25px 0px 0px; font-weight:900">
+            分期付款
+              3期 <span ng-bind="total() /3|currency:'':0" ></span> 元、
+              6期 <span ng-bind="total() /6|currency:'':0"></span> 元、
+              12期 <span ng-bind="total() /12|currency:'':0"></span> 元、
+              24期 <span ng-bind="total() /24|currency:'':0"></span> 元
+            </div>
+        </div>
+    </div>
+    <div class="tool" style="padding:10px 0px 5px 0px; background-color:White;color:Black;">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav navbar-nav">     
+                   <li style="padding:0px 0px 0px 0px"><button type="button"  ng-click="addtoCart()" style="border:1px solid white;background-color:white;"><img src="~/Content/images/cart.png" alt="放入購物車" width="40" height="40" title="放入購物車" /></li>
+                   <li style="padding:0px 5px 0px 0px"><button  type="button"  ng-click="reset()" style="border:1px solid white;background-color:white;"><img src="~/Content/images/restart.png" alt="重新估價" width="40" height="40" title="重新估價" /></button></li>
+                   <li style="padding:0px 8px 0px 5px"><button type="button"  ng-click="print()" style="border:1px solid white;background-color:white;"><img src="~/Content/images/printer.png" alt="列印估價單" width="40" height="38" title="列印估價單" /></button></li>
+                   <li style="padding:0px 8px 0px 5px"><button type="button"  style="border:1px solid white;background-color:white;"><input type="image" src="~/Content/images/excel.jpg" alt="匯出Excel" width="40" height="38" title="匯出Excel檔"/></button></li>
+                   <li style="font-size:20px; line-height:40px; padding:0px 20px 0px 0px;" ><div> 耗電約 <span ng-bind="powers()"></span> 瓦 總計 <span ng-bind="total()"></span> 元 </div></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+}

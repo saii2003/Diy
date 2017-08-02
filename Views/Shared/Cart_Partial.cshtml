@@ -1,0 +1,58 @@
+﻿@{
+    var currentCart = pc.Models.cartOperation.GetCurrentCart();
+}
+
+<a id="cartdropdown" class ="dropdown-toggle" data-toggle="dropdown">
+<img src="../../Content/images/shopcart.jpg" alt="放入購物車" width="50" height="50" title="放入購物車" />
+
+<span style="position:relative; top:-5px; right:28px; color:white; font-size:16px; font-weight:900;">@currentCart.count</span>
+
+</a>
+
+<ul class="dropdown-menu" role="menu" aria-labelledby="cartdropdown" style="padding:15px 10px; width:inherit;">
+@if (@currentCart.count != 0)
+{
+<table class="tabel table-bordered text-center" style="margin:10px 10px 15px 10px; width:600px;">
+<tr >
+<th class="text-center" style="padding:4px 0px;">商品名稱</th>
+<th class="text-center" style="padding:4px 0px;">數量</th>
+<th class="text-center" style="padding:4px 0px;">小計</th>
+<th class="text-center" style="padding:4px 3px;">取消</th>
+</tr>
+
+
+
+
+
+@foreach (var cartitem in currentCart.cartItems)
+{
+    <tr id="cart">
+    <td class="text-center" style="padding:4px 20px;">@cartitem.name</td>
+    <td class="text-center" style="padding:4px 20px;"> @cartitem.amount</td>
+    <td class="text-center" style="padding:4px 20px;">@cartitem.one_total</td>
+    <td style=" padding: 0px 5px 0px 5px;"><span class="btn btn-danger" style="font-size:13px; padding:0px 5px 0px 5px; border-radius:2px;" onclick="removeCartItem('@cartitem.name')">X</span></td>
+    </tr>
+}
+<tr>
+<td style="border:1px solid white"></td>
+<td class="text-center" style="border:1px solid white; padding:5px 0px;">總計</td>
+<td class="text-center" style="border:1px solid white;padding:5px 0px;">@currentCart.total</td>
+</tr>
+</table>
+<div class="text-right" style="padding:0px 15px 0px 0px; margin:0px 0px 0px 0px;">
+<a class="btn btn-primary text-center " onclick="clearCart()">清除</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-primary text-center" href="../Pc/confirm">結帳</a>
+}
+else
+{
+    <a class="btn btn-primary text-center" href="../Member/Login">結帳-請登入</a>
+}
+</div>
+}
+else
+{
+    <div class="text-center">購物車是空的</div>
+}
+</ul>

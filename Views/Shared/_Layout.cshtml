@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css/bootstrap.min.css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    
+    
+</head>
+<body>
+@if (User.Identity.IsAuthenticated)
+{
+    FormsIdentity id = (FormsIdentity)User.Identity;
+    FormsAuthenticationTicket ticket = id.Ticket;
+    if (ticket.UserData == "admin")
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">後端管理頁面</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li id="index"><a href="~/Pc/Index">首頁</a></li>
+                <li id="memindex" class="dropdown-toggle" data-toggle="dropdown"><a href="#">管理頁面<span class="caret"></span></a></li>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li id="changemem" role="presentation"><a role="menuitem" tabindex="-1" href="~/Manage/list">商品管理</a></li>
+                    <li id="changepw" role="presentation"><a role="menuitem" tabindex="-1" href="~/Manage/add">新增商品</a></li>
+                    <li id="changepw" role="presentation"><a role="menuitem" tabindex="-1" href="~/Manage/order">訂單管理</a></li>
+                </ul>
+                <li class="log"><a href="~/Member/Logout"><span class="glyphicon glyphicon-user"></span> @User.Identity.Name 登出</a></li>                  
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+    
+    }
+    else
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">電腦估價</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li id="index"><a href="~/Pc/Index">首頁</a></li>
+                <li id="memindex" class="dropdown-toggle" data-toggle="dropdown"><a href="#">會員專區<span class="caret"></span></a></li>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li id="changemem" role="presentation"><a role="menuitem" tabindex="-1" href="~/Member/Changemem">修改個人資料</a></li>
+                    <li id="changepw" role="presentation"><a role="menuitem" tabindex="-1" href="~/Member/changepw">修改密碼</a></li>
+                    <li id="changepw" role="presentation"><a role="menuitem" tabindex="-1" href="~/Member/myOrder">我的訂單</a></li>
+                </ul>
+                <li class="log"><a href="~/Member/Logout"><span class="glyphicon glyphicon-user"></span> @User.Identity.Name 登出</a></li>        
+                <li id="cart">
+                
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </nav>
+   
+    }
+}
+else
+{
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">電腦估價</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li id="index"><a href="~/Pc/Index">首頁</a></li>
+            <li id="register"><a href="~/Member/register">註冊</a></li>
+            <li id="login"><a href="~/Member/login">登入</a></li>
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+}
+            
+
+    <div class="container" style="margin-top:70px">
+        <div class="starter-template">
+            @RenderBody()
+        </div>
+    </div>
+    <footer class="text-center" style="margin-top:30px">
+        <h5>Copyright © @DateTime.Now.Year Allan All rights reserved.</h5>
+        <h5>此網頁無任何商業行為，僅供面試之用。</h5>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.min.js"></script>
+</body>
+</html>

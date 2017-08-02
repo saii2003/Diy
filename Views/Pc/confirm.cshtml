@@ -1,0 +1,70 @@
+﻿@model pc.Models.ConfirmView
+@{
+    ViewBag.Title = "confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var currentCart = pc.Models.cartOperation.GetCurrentCart();
+}
+<div style="width:85%;margin:0px auto">
+<h4>購物明細</h4>
+</div>
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="table table-bordered text-center" style="width:85%; margin:0px auto">
+        <thead>
+            <tr>
+                <th class="text-center" style="width:20px;">#</th>
+                <th class="text-center">商品名稱</th>
+                <th class="text-center" style="width:70px;">數量</th>
+                <th class="text-center" style="width:80px;">小計</th>
+            </tr>
+        </thead>
+        @{
+            int id = 1;
+            foreach (var item in currentCart.cartItems)
+            {
+                <tr>
+                    <td>@id</td>
+                    <td>@item.name</td>
+                    <td>@item.amount</td>
+                    <td>@item.one_total</td>
+                </tr>
+                id++;
+            }
+        }
+        <tr>
+            <td style="border:1px solid white"></td>
+            <td style="border:1px solid white"></td>
+            <td style="border:1px solid white">總計</td>
+            <td style="border:1px solid white">@currentCart.total</td>
+        </tr>
+    </table>
+    
+    <div style="margin:0px auto;width:85%" >
+    <h4>收件資料</h4>
+    
+
+    <div class="form-group">
+    @Html.LabelFor(m => m.receiver)
+    @Html.TextBoxFor(m => m.receiver, new { @class = "form-control", @Value = ViewData["name"] })
+    @Html.ValidationMessageFor(m => m.receiver)
+    </div>
+    <div class="form-group">
+    @Html.LabelFor(m => m.phone)
+    @Html.TextBoxFor(m => m.phone, new { @class = "form-control", @Value = ViewData["phone"] })
+    @Html.ValidationMessageFor(m => m.phone)
+    </div>
+    <div class="form-group">
+    @Html.LabelFor(m => m.address)
+    @Html.TextBoxFor(m => m.address, new { @class = "form-control", @Value = ViewData["address"] })
+    @Html.ValidationMessageFor(m => m.address)
+    </div>
+    @Html.ValidationSummary(true)
+
+
+
+
+    <input class="btn btn-primary" type="submit" value="確定" style="float:right;"/>
+    </div>
+}

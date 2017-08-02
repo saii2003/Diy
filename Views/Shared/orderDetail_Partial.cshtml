@@ -1,0 +1,28 @@
+﻿@model pc.Models.myOrderView
+<a id="orderdropdown" class ="dropdown-toggle" data-toggle="dropdown">
+明細
+
+</a>
+
+<ul class="dropdown-menu" role="menu" aria-labelledby="orderdropdown" style=" position:static;z-index:1; padding:2px 2px;">
+
+<table class="table table-hover text-center">
+<thead>
+<tr>
+<th class="text-center"  >商品名稱</th>
+<th class="text-center" style="width:80px;">數量</th>
+<th class="text-center">小計</th>
+
+</tr>
+</thead>
+@foreach (var item in Model.orderDetail)
+{
+    <tr>
+    <td class="text-center" >@item.name</td>
+    <td class="text-center" style="width:80px">@Convert.ToInt32(item.amount)</td>
+    <td class="text-center">@Convert.ToInt32(item.price)</td>
+    </tr>
+}
+
+</table>
+</ul>

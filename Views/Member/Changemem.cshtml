@@ -1,0 +1,60 @@
+﻿@model pc.Models.ChangeMemView
+
+@{
+    ViewBag.Title = "修改個人資料";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/invertical.css")
+}
+<ul class="breadcrumb">
+  <li>會員專區</li>
+  <li>@Html.ActionLink("修改密碼", "changepw", "Member")</li> 
+     <li>@Html.ActionLink("我的訂單", "myOrder","Member")</li>
+</ul>
+
+<h3>會員專區-修改個人資料</h3>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div class="input-group-vertical">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                @Html.TextBoxFor(m => m.name, new { @class = "form-control", @Value = ViewData["name"] })
+            </div>
+                @Html.ValidationMessageFor(m=>m.name)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                @Html.TextBoxFor(m => m.phone, new { @class = "form-control", @Value = ViewData["phone"] })
+            </div>
+                @Html.ValidationMessageFor(m=>m.phone)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+                @Html.TextBoxFor(m => m.address, new { @class = "form-control", @Value = ViewData["address"] })
+            </div>
+                @Html.ValidationMessageFor(m=>m.address)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                @Html.TextBoxFor(m => m.email, new { @class = "form-control", @Value = ViewData["email"] })
+            </div>
+                @Html.ValidationMessageFor(m=>m.email)
+        </div>   
+    </div>
+    
+    <input id="submit" type="submit" class="btn btn-lg btn-primary btn-block" value="確定" />
+    
+}
+<script type="text/javascript">
+    document.getElementById("memindex").className = "active";
+    document.getElementById("changemem").className = "active";
+    document.getElementById("submit").onclick = function () {
+        confirm("確定要修改?");
+    }
+</script>

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "新增商品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ 
+    
+}
+<ul class="breadcrumb">
+  <li>後端管理</li>
+  <li>@Html.ActionLink("商品清單", "list","Manage")</li>
+  <li>@Html.ActionLink("訂單管理", "order","Manage")</li>
+</ul>
+<h4>新增商品</h4>
+@using (Html.BeginForm("add", "Manage", FormMethod.Post, new { enctype ="multipart/form-data" }))
+{
+
+    <div class="form-group">
+        <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
+            @Html.TextBox("name","", new { @class = "form-control", @placeholder = "請輸入商品名稱" })
+        </div>
+
+    </div>
+    <div class="form-group" style="width:250px">
+        <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
+           @Html.DropDownList("cid", (List<SelectListItem>)ViewBag.categroy, "請選擇商品分類", new { @class = "form-control" })
+        </div>
+    
+    </div>
+    
+    <div class="form-group" style="width:150px">
+        <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
+            @Html.TextBox("price","", new { @class = "form-control", @placeholder = "售價" })
+        </div>
+            
+    </div>
+    
+    <div class="form-group" style="width:150px">
+        <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
+            @Html.TextBox("instock","", new { @class = "form-control", @placeholder = "庫存" })
+        </div>
+
+    </div>
+    
+    <div style="margin:10px 0px 10px 0px; font-size:14px;">
+    @Html.TextBox("file",null, new { type = "file" })
+    </div>
+    @Html.ValidationSummary(true)
+    <input type="submit" value="確定"  class="btn btn-primary btn-lg btn-block"/>
+  
+} 
+
+
+

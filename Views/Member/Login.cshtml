@@ -1,0 +1,47 @@
+﻿@model pc.Models.MemberLoginView
+
+@{
+    ViewBag.Title = "會員登入";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/login.css");
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h3>登入</h3>
+    <div class="input-group-vertical">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                @Html.TextBoxFor(m => m.username, new { @class = "form-control", @placeholder = "使用者名稱" })
+            </div>
+            @Html.ValidationMessageFor(m => m.username)
+        </div>
+
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "密碼" })    
+            </div>
+            @Html.ValidationMessageFor(m => m.password)
+        </div>
+    </div>
+    <div class="input-group">
+        <span id="code" class="input-group-addon"><span class="glyphicon glyphicon-file"></span></span>
+                @Html.TextBoxFor(m => m.validatecode, new { @class = "form-control", @placeholder = "驗證碼" })                
+ 
+               <span id="img" class="input-group-addon"><img src="@Url.Action("valicode")" alt="驗證碼" title="更新驗證碼"  class="imgcode" onclick="this.src=this.src+'?'"/></span>
+        
+        @Html.ValidationMessageFor(m=>m.validatecode)
+        
+    </div>
+    <h5><label class="checkbox-inline"> @Html.CheckBoxFor(m => m.rememberMe)保持登入</h5>
+    @Html.ValidationSummary(true)
+    <input class="btn btn-lg btn-primary btn-block" type=submit value="登入">
+}
+<div class="text-center"><a href="~/Member/register">註冊</a>&nbsp &nbsp<a href="~/Member/forgetpw">忘記密碼</a></label></div>
+<script type="text/javascript">
+    document.getElementById("login").className = "active";
+</script>

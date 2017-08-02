@@ -1,0 +1,58 @@
+﻿.input-group-vertical
+{
+    margin-bottom:10px;
+}
+.form-group
+{
+    margin-top:0;
+    margin-bottom: 0;
+    
+}
+.form-control
+{
+    height:43px;
+    border-radius: 0;
+}
+.form-group:first-child .form-control 
+{
+    height:45px;
+    border-top-right-radius: 5px;
+}
+.form-group:last-child .form-control 
+{
+    height:45px;
+    border-bottom-right-radius: 5px;
+    
+}
+.input-group
+{
+    margin-bottom: -1px;
+    border-radius: 0;
+
+}
+
+.input-group-addon
+{  
+    border-radius: 0;
+}
+.form-group:first-child .input-group-addon
+{
+    border-top-left-radius: 5px;
+}
+.form-group:last-child .input-group-addon
+{
+    border-bottom-left-radius: 5px;
+   
+}
+.form-group:first-child .input-group
+{
+    
+    border-bottom-left-radius: 5px;
+
+   
+}
+.form-group:last-child .input-group
+{  
+    border-bottom-left-radius: 5px;
+    
+}

@@ -1,0 +1,79 @@
+﻿@model pc.Models.Manage.ordersView
+
+@{
+    ViewBag.Title = "訂單管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using(Html.BeginForm("order","Manage",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <ul class="breadcrumb">
+      <li>後端管理</li>
+       <li>@Html.ActionLink("商品清單", "list", "Manage")</li>
+      <li>@Html.ActionLink("新增商品", "add", "Manage")</li> 
+    </ul>
+    <h3>訂單管理</h3>
+
+        <div class="input-group" style="margin:10px 0px">
+        <span class="input-group-btn" >@Html.DropDownListFor(m => m.category, (IEnumerable<SelectListItem>)ViewBag.category, new { @class = "btn btn-default", style = "height:34px" }) </span>
+            @Html.TextBoxFor(m => m.searchStr, new { @placeholder = "請輸入查詢字串", @class = "form-control" })
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary" style="height:34px">查詢</button></span>
+        </div>
+
+
+    <table class="table table-hover table-bordered text-center"  >
+
+
+    <thead>
+    <tr>
+    <th class="text-center">編號</th>
+    <th class="text-center">會員ID</th>
+    <th class="text-center">收件者</th>
+    <th class="text-center">電話</th>
+    <th class="text-center">地址</th>
+    <th class="text-center">價格</th>
+    <th class="text-center">付款</th>
+    <th class="text-center">出貨</th>
+    <th class="text-center">明細</th>
+    <th class="text-center">編輯</th>
+    </tr>
+    </thead>
+    @foreach (var item in Model.order)
+    {
+        string payment = string.Empty;
+        string shipment = string.Empty;
+
+        if (item.payment == false)
+        {
+            payment = "未付款";
+        }
+        else
+        {
+            payment = "已付款";
+        }
+
+        if (item.shipment == false)
+        {
+            shipment = "未出貨";
+        }
+        else
+        {
+            shipment = "已出貨";
+        }
+    
+        <tr>
+        <td style="width:50px;">@item.id</td>
+        <td style="width:60px;">@item.uid</td>
+        <td style="width:100px;">@item.receiver</td>
+        <td style="width:100px;">@item.phone</td>
+        <td>@item.address</td>
+        <td style="width:70px;">@Convert.ToInt32(item.price)</td>
+        <td style="width:70px;">@payment</td>
+        <td style="width:70px;">@shipment</td>
+        <td>@Html.Action("OrderDetail_Partial", "Member", new { oid = item.id })</td>
+        <td style="width:50px;">@Html.ActionLink("編輯", "orderEdit", new { oid = @item.id })</td>
+        </tr>
+    }
+    </table>
+}
+

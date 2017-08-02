@@ -1,0 +1,19 @@
+﻿.tooltip
+{
+    position:relative;
+    display:inline-block;
+    width:30px;
+    height:30px;
+}
+.tooltip .tooltip_img
+{
+    position:absolute;
+    visibility:hidden;
+    background-color:Black;
+    border-radius:5px;
+    padding:5px 5px;
+    z-index:1;
+    top:100%;
+    left:40%;
+    
+}

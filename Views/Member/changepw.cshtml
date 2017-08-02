@@ -1,0 +1,48 @@
+﻿@model pc.Models.ChangePwView
+
+@{
+    ViewBag.Title = "修改密碼";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/invertical.css");
+}
+  <ul class="breadcrumb">
+  <li>會員專區</li>
+  <li>@Html.ActionLink("修改個人資料", "Changemem", "Member")</li> 
+     <li>@Html.ActionLink("我的訂單", "myOrder","Member")</li>
+</ul>
+
+<h3>會員專區-修改密碼</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="input-group-vertical">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                @Html.PasswordFor(m => m.password, new { @class = "form-control",@placeholder="舊密碼" })
+            </div>
+            @Html.ValidationMessageFor(m => m.password)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                @Html.PasswordFor(m => m.newpassword, new { @class = "form-control", @placeholder = "新密碼" })
+            </div>
+            @Html.ValidationMessageFor(m => m.newpassword)
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                @Html.PasswordFor(m => m.confirm_password, new { @class = "form-control", @placeholder = "確定新密碼" })
+            </div>
+            @Html.ValidationMessageFor(m => m.confirm_password)
+        </div>
+    </div>
+   <div class="text-center" style="color:Red"><h4> @ViewData["result"] </h4></div>
+    @Html.ValidationSummary(true)
+    <input class="btn btn-lg btn-block btn-primary" type="submit" value="確定" />
+}
+<script type="text/javascript">
+    document.getElementById("memindex").className = "active"
+    document.getElementById("changepw").className = "active"
+</script>

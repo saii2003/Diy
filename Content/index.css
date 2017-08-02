@@ -1,0 +1,83 @@
+﻿td
+{
+    font-size:15px;
+
+}
+.row
+{
+    margin:0px;
+}
+.table
+{
+    margin-bottom:0px;  
+}
+
+#tooltip
+{
+    position: relative;
+}
+#tooltip_img
+{
+    display:none;
+    width: 300px;
+    height:300px;
+    background-color: black;
+    padding: 2px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    right:50%;
+    top:100%;
+}
+#tooltip_img img
+{
+    width:296px;
+    height:296px;
+    color:White;
+
+    
+}
+#tooltip:hover #tooltip_img
+{
+    display:block;
+}
+.tool
+{
+  
+    
+
+    padding:4px 0px 1px 0px;
+
+
+    font-family:@微軟正黑體;
+    font-weight:bolder;
+
+    
+
+}
+.tool ul
+{
+    width:100%;
+    
+}
+.tool ul li
+{
+    float:right;
+    padding: 0px 2px 0px 2px;
+    
+
+}
+.tag
+{
+    background-color:White;
+    color:Gray;
+    border-radius:8px;
+    position:absolute;
+    bottom:19px;
+    right:1px;
+    padding:0px 5px 0px 5px;
+    font-family:@微軟正黑體;
+    
+}
+
+

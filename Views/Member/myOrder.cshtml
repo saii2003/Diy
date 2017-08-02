@@ -1,0 +1,111 @@
+﻿@model pc.Models.myOrderView
+
+@{
+    ViewBag.Title = "我的訂單";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Scripts.Render("https://www.paypalobjects.com/js/external/dg.js");
+
+}
+
+
+
+<div>
+<ul class="breadcrumb">
+  <li>會員專區</li>
+  <li>@Html.ActionLink("修改個人資料", "Changemem","Member")</li>
+  <li>@Html.ActionLink("修改密碼", "changepw", "Member")</li> 
+</ul>
+
+
+<table class="table table-hover table-bordered text-center"  style="width:auto;margin:0px auto"  >
+
+<caption style="font-size:16px">我的訂單</caption>
+<thead>
+<tr>
+
+<th class="text-center">訂單編號</th>
+<th class="text-center">價格</th>
+<th class="text-center">付款</th>
+<th class="text-center">出貨</th>
+
+<th class="text-center">去付款</th>
+<th class="text-center">取消訂單</th>
+<th class="text-center">訂單明細</th>
+
+
+</tr>
+</thead>
+@foreach(var item in Model.order)
+{
+    string total = Convert.ToInt32(item.price).ToString();
+    string payment = string.Empty;
+    string shipment = string.Empty;
+
+    if (item.payment == false)
+    {
+        payment = "未付款";
+    }
+    else
+    {
+        payment = "已付款"; 
+    }
+    
+    if (item.shipment == false)
+    {
+        shipment = "未出貨";
+    }
+    else
+    {
+        shipment = "已出貨";
+    }
+
+    <tr>
+    
+    <td style="width:70px">@item.id</td>
+    <td  style="width:70px">@Convert.ToInt32(item.price)</td>
+    <td style="width:70px" >@payment</td>
+    <td  style="width:70px">@shipment</td>
+   
+
+   
+
+     
+    @if (payment == "已付款")
+    {
+         <td style="width:100px">@Html.ActionLink("已付款", "orderCancel", new { oid = @item.id }, new { @class = "btn btn-primary btn-sm", disabled = "disabled", @style = "padding:0px 8px; width:80px;" })</td>
+        <td style="width:100px"> @Html.ActionLink("取消訂單", "orderCancel", new { oid = @item.id }, new { @class = "btn btn-primary btn-sm", disabled = "disabled", @style = "padding:0px 8px; width:80px;" })</td>
+    }
+    else
+    {
+        //paypal
+        using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "https://www.sandbox.paypal.com/cgi-bin/webscr" }))
+        {
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="gaoweilun@gmail.com">
+            <input type="hidden" name="custom" value="@item.id" />
+            <input type="hidden" name="item_name" value="訂單編號：@item.id">
+            <input type="hidden" name="amount" value="@total">
+            <input type="hidden" name="currency_code" value="TWD" />
+            <input type="hidden" name="charset" value="utf-8" />
+
+            <td style="width:100px"><input type="image" id="submitBtn" value="Pay with PayPal" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif"></td>
+        }
+        
+        <td style="width:100px">
+        @using(Html.BeginForm("orderCancel","Member",FormMethod.Post))
+        {
+            @Html.Hidden("oid",item.id)
+            <input type=submit value="取消定單" class="btn btn-primary btn-sm" style="padding:0px 8px; width:80px;" onclick = "return confirm('您確定要取消訂單編號 @item.id 的訂單嗎?')"/>
+        }
+        
+        
+        @*@Html.ActionLink("取消訂單", "orderCancel", new { oid = @item.id }, new { @class = "btn btn-primary btn-sm", @style = "padding:0px 8px; width:80px;", @onclick = "return confirm('你確定要取消訂單編號\"" + item.id + "\"的訂單?');" })*@</td>
+    }
+     <td >@Html.Action("OrderDetail_Partial", "Member", new { oid = item.id })</td>
+    </tr>
+
+}
+</table>
+</div>
+
+
