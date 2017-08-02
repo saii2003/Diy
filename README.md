@@ -1,10 +1,10 @@
-Diy目錄檔案說明
+# Diy目錄檔案說明
 
 ![index text](https://saii2003.github.io/Introduction/intro_pcdiy/image/1.png)
 
 <pre><code>### 使用技術</code></pre>
 - 後端技術：Asp.Net C#
-- 前端技術：HTML、CS S、Boostrap、Angularjs
+- 前端技術：HTML、CSS、Boostrap、Angularjs
 - 資料庫：MSSQL 2008
 - 架構：MVC
 
@@ -25,12 +25,12 @@ Diy目錄檔案說明
 - valicode.cshtml：驗證碼
 
 <pre><code>### View/Manage</code></pre>
-add.cshtml：新增產品頁面	
-edit.cshtml：編輯產品頁面	
-list.cshtml：產品清單頁面		
-order.cshtml：訂單頁面		
-orderDetail.cshtml：訂單明細頁面		
-orderEdit.cshtml：編輯訂單
+- add.cshtml：新增產品頁面	
+- edit.cshtml：編輯產品頁面	
+- list.cshtml：產品清單頁面		
+- order.cshtml：訂單頁面		
+- orderDetail.cshtml：訂單明細頁面		
+- orderEdit.cshtml：編輯訂單
 
 
 ,
