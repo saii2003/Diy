@@ -15,7 +15,7 @@ namespace pc.Service
         public void send_mail(string to, string subject, string body)
         {
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("ggogopro@gmail.com");
+            mail.From = new MailAddress("******@gmail.com");
             mail.To.Add(to);
 
             mail.Subject = subject;
@@ -25,7 +25,7 @@ namespace pc.Service
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential("ggogopro@gmail.com", "i'4namaaeljo3xjp6");
+            smtp.Credentials = new NetworkCredential("******@gmail.com", "******");
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
